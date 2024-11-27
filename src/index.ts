@@ -2,47 +2,30 @@
 
 import { Command } from "commander";
 import figlet from "figlet"
-import { listDirContents } from "./actions/dir/listDirContents";
-import { createDir } from "./actions/dir/createDir";
-import { createFile } from "./actions/files/createFile";
-import path from "path";
-import { validateCamelCase } from "./utils/validate-camel-case";
+import { TemplateCommands } from "./commands/template-commands";
+import { GenerateCommands } from "./commands/generate-commands";
+import { TextColorHandler } from "./utils/text-color-handler";
+import { DefaultCommands } from "./commands/default-commands";
 
-const program = new Command();
+export const program = new Command();
 
 console.log(
   figlet.textSync("PVDir")
 )
 
+const colorHandler = new TextColorHandler()
+const templateCommands = new TemplateCommands(colorHandler).build()
+const generateCommands = new GenerateCommands(colorHandler).build()
+const defaultCommands = new DefaultCommands(colorHandler).build()
+
 program
   .version("1.0.0")
   .description("Directory manager CLI.")
-  .option("-l, --ls [value]", "List all directories")
-  .option("-m, --mkdir <value>", "Create a new directory")
-  .option("-t, --touch <value>", "Create a new file")
-  .parse(process.argv)
+  .addCommand(defaultCommands)
+  .addCommand(templateCommands)
+  .addCommand(generateCommands)
 
-const options = program.opts()
-
-if (options.ls) {
-  try {
-    const filepath = typeof options.ls === "string" ? options.ls : __dirname
-    listDirContents(filepath)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-if (options.mkdir) {
-  validateCamelCase(options.mkdir)
-  createDir(path.resolve(process.cwd(), options.mkdir))
-}
-
-if (options.touch) {
-  validateCamelCase(options.touch)
-  createFile(path.resolve(process.cwd(), options.touch))
-}
-
+program.parse(process.argv)
 if (!process.argv.slice(2).length) {
   program.outputHelp()
 }
