@@ -9,14 +9,14 @@ import { DefaultCommands } from "./commands/default-commands";
 
 export const program = new Command();
 
-console.log(
-  figlet.textSync("PVDir")
-)
-
 const colorHandler = new TextColorHandler()
 const templateCommands = new TemplateCommands(colorHandler).build()
 const generateCommands = new GenerateCommands(colorHandler).build()
 const defaultCommands = new DefaultCommands(colorHandler).build()
+
+console.log(
+  colorHandler.info(figlet.textSync("PVDir"))
+)
 
 program
   .version("1.0.0")
