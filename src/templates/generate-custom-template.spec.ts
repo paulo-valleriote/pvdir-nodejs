@@ -1,19 +1,19 @@
-import { GenerateCustomTemplate } from "./generate-custom-template"
+import { GenerateCustomTemplateUseCase } from "./generate-custom-template"
 import { TemplateManager } from "./template-manager"
 
 describe("GenerateCustomTemplate", () => {
   let templateManager: TemplateManager
-  let sut: GenerateCustomTemplate
+  let sut: GenerateCustomTemplateUseCase
 
   beforeEach(() => {
     templateManager = new TemplateManager()
-    vitest.spyOn(templateManager, "findSavedTemplate").mockImplementation(async () => `
+    vitest.spyOn(templateManager, "find").mockImplementation(async () => `
       Hello World! This is {variable} of {variable}
 
       Finally, {variable}
     `)
 
-    sut = new GenerateCustomTemplate(templateManager)
+    sut = new GenerateCustomTemplateUseCase(templateManager)
   })
 
   it("should generate a custom template", async () => {

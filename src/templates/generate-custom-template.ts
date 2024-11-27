@@ -1,6 +1,9 @@
 import { TemplateManager } from "./template-manager"
 
-export class GenerateCustomTemplate {
+/**
+ * Generate a custom template
+*/
+export class GenerateCustomTemplateUseCase {
   constructor(private readonly templateManager: TemplateManager) {}
   
   /**
@@ -22,7 +25,7 @@ export class GenerateCustomTemplate {
   }
 
   private async getSavedTemplate(templateId: string) {
-    const template = await this.templateManager.findSavedTemplate(templateId)
+    const template = await this.templateManager.find(templateId)
     if (!template) throw new Error(`Template with id ${templateId} not found`)
 
     return template

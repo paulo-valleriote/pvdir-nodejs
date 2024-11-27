@@ -1,10 +1,10 @@
-import { GenerateUseCaseTemplate } from "./generate-factory"
+import { GenerateFactoryTemplateUseCase } from "./generate-factory"
 
 describe('GenerateFactory', () => {
-  let sut: GenerateUseCaseTemplate
+  let sut: GenerateFactoryTemplateUseCase
 
   beforeEach(() => {
-    sut = new GenerateUseCaseTemplate()
+    sut = new GenerateFactoryTemplateUseCase()
   })
 
   it('should generate a factory', async () => {

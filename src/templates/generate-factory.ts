@@ -2,14 +2,17 @@ import { transformIntoCamelCase } from "src/utils/transform-into-camel-case"
 import { transformIntoKebabCase } from "src/utils/transform-into-kebab-case"
 import { transformIntoPascalCase } from "src/utils/transform-into-pascal-case"
 
-export class GenerateUseCaseTemplate {
 
+/**
+ * Generate a factory template
+*/
+export class GenerateFactoryTemplateUseCase {
   /**
- * Generate a use case template
- * @param dependencies - The dependencies to import and instantiate
- * @param classToInstantiate - The class to instantiate
- * @returns The file template and filename
- */
+   * Generate a factory template
+   * @param dependencies - The dependencies to import and instantiate
+   * @param classToInstantiate - The class to instantiate
+   * @returns The file template and filename
+   */
   async execute(dependencies: string[], classToInstantiate: string) {
     const fileTemplate = `
       ${

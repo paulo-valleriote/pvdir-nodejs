@@ -1,8 +1,10 @@
 import { transformIntoKebabCase } from "src/utils/transform-into-kebab-case"
 import { transformIntoPascalCase } from "src/utils/transform-into-pascal-case"
 
-
-export class GenerateUseCaseTemplate {
+/**
+ * Generate a use case template
+*/
+export class GenerateUseCaseTemplateUseCase {
   /**
   * Generate a use case template
   * @param className - The class name

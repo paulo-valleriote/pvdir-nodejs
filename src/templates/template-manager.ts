@@ -6,14 +6,14 @@ import path from "node:path"
 export class TemplateManager {
   private readonly templatesPath = path.join(__dirname, "saved-custom-templates")
 
-  async listSavedTemplates() {
+  async list() {
     const list = Array.from(savedCustomTemplatesMap.entries())
       .map(([id, data]) => ({ id, ...data }))
 
     return list
   }
 
-  async findSavedTemplate(templateId: string) {
+  async find(templateId: string) {
     const templateFile = savedCustomTemplatesMap.get(templateId)
 
     if (!templateFile) {
@@ -24,7 +24,7 @@ export class TemplateManager {
     return template
   }
 
-  async saveCustomTemplate(templateId: string, template: string) {
+  async save(templateId: string, template: string) {
     const filename = templateId.split('/').pop() || templateId
     const id = templateId ?? randomUUID()
 
@@ -36,7 +36,7 @@ export class TemplateManager {
     savedCustomTemplatesMap.set(id, { filename: `${filename}.txt`, path: dirPath })
   }
 
-  async deleteCustomTemplate(templateId: string) {
+  async delete(templateId: string) {
     const templateFile = savedCustomTemplatesMap.get(templateId)
     if (!templateFile) {
       throw new Error("Template not found")

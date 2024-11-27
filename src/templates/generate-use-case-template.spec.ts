@@ -1,10 +1,10 @@
-import { GenerateUseCaseTemplate } from "./generate-use-case-template"
+import { GenerateUseCaseTemplateUseCase } from "./generate-use-case-template"
 
 describe('GenerateUseCaseTemplate', () => {
-  let sut: GenerateUseCaseTemplate
+  let sut: GenerateUseCaseTemplateUseCase
 
   beforeEach(() => {
-    sut = new GenerateUseCaseTemplate()
+    sut = new GenerateUseCaseTemplateUseCase()
   })
 
   it('should generate a use case template', async () => {
