@@ -1,5 +1,6 @@
 {
-  "name": "pvdir",
+  "name": "@paulo-valleriote/pvdir",
+  "description": "A CLI tool to create and manage directories and files",
   "version": "1.0.0",
   "main": "dist/index.js",
   "bin": {
@@ -9,10 +10,15 @@
     "build": "tsup src --out-dir dist",
     "test": "vitest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cli",
+    "npmtool",
+    "typescript"
+  ],
+  "author": "Paulo Valleriote",
   "license": "ISC",
-  "description": "",
+  "repository": "https://github.com/paulo-valleriote/pvdir-nodejs",
+  "homepage": "https://github.com/paulo-valleriote/pvdir-nodejs#readme",
   "dependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/figlet": "1.7.0",
