@@ -6,6 +6,7 @@ import { listDirContents } from "./actions/dir/listDirContents";
 import { createDir } from "./actions/dir/createDir";
 import { createFile } from "./actions/files/createFile";
 import path from "path";
+import { validateCamelCase } from "./utils/validate-camel-case";
 
 const program = new Command();
 
@@ -33,10 +34,12 @@ if (options.ls) {
 }
 
 if (options.mkdir) {
+  validateCamelCase(options.mkdir)
   createDir(path.resolve(process.cwd(), options.mkdir))
 }
 
 if (options.touch) {
+  validateCamelCase(options.touch)
   createFile(path.resolve(process.cwd(), options.touch))
 }
 
