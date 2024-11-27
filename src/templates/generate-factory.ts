@@ -13,10 +13,16 @@ export class GenerateFactoryTemplateUseCase {
    * @param classToInstantiate - The class to instantiate
    * @returns The file template and filename
    */
-  async execute(dependencies: string[], classToInstantiate: string) {
+  async execute(dependencies: string, classToInstantiate: string) { 
+    const dependenciesArray = []
+
+    if (dependencies) {
+      dependenciesArray.push(...dependencies.split(","))
+    }
+
     const fileTemplate = `
       ${
-        dependencies.map((dependency) => 
+        dependenciesArray.map((dependency) => 
           `import { ${transformIntoPascalCase(dependency)} } from "./${transformIntoKebabCase(dependency)}"`
         ).join("\n")
       }
@@ -24,12 +30,12 @@ export class GenerateFactoryTemplateUseCase {
 
       export const make${classToInstantiate} = () => {
         ${
-          dependencies.map((dependency) => 
+          dependenciesArray.map((dependency) => 
             `const ${transformIntoCamelCase(dependency)} = new ${transformIntoPascalCase(dependency)}()`
           ).join("\n")
         }
 
-        return new ${transformIntoPascalCase(classToInstantiate)}(${dependencies.map((dependency) => transformIntoCamelCase(dependency)).join(", ")  })
+        return new ${transformIntoPascalCase(classToInstantiate)}(${dependenciesArray.map((dependency) => transformIntoCamelCase(dependency)).join(", ")  })
       }
     `
 
