@@ -3,6 +3,7 @@ import { TemplateManager } from "./template-manager"
 
 describe("GenerateCustomTemplate", () => {
   let templateManager: TemplateManager
+  let sut: GenerateCustomTemplate
 
   beforeEach(() => {
     templateManager = new TemplateManager()
@@ -11,12 +12,12 @@ describe("GenerateCustomTemplate", () => {
 
       Finally, {variable}
     `)
+
+    sut = new GenerateCustomTemplate(templateManager)
   })
 
   it("should generate a custom template", async () => {
-    const generateCustomTemplate = new GenerateCustomTemplate(templateManager)
-
-    const result = await generateCustomTemplate.generateCustomTemplate("123", ["test", "generate custom template", "test"])
+    const result = await sut.execute("123", ["test", "generate custom template", "test"])
     expect(result).toBe(`
       Hello World! This is test of generate custom template
 
@@ -25,7 +26,6 @@ describe("GenerateCustomTemplate", () => {
   })
 
   it("should throw an error if the template is malformed", async () => {
-    const generateCustomTemplate = new GenerateCustomTemplate(templateManager)
-    await expect(generateCustomTemplate.generateCustomTemplate("123", ["test"])).rejects.toThrow()
+    await expect(sut.execute("123", ["test"])).rejects.toThrow()
   })
 })

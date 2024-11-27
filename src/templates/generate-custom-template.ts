@@ -13,7 +13,7 @@ export class GenerateCustomTemplate {
    * @throws {Error} If more dependencies are provided than needed.
    * @throws {Error} If some dependencies are not used in the template.
    */
-  async generateCustomTemplate(templateId: string, dependencies: string[]): Promise<string> {
+  async execute(templateId: string, dependencies: string[]): Promise<string> {
     if (dependencies.length === 0) throw new Error("No dependencies provided")
 
     const template = await this.getSavedTemplate(templateId)

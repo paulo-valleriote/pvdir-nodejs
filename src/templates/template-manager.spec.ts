@@ -4,8 +4,10 @@ import path from 'node:path'
 
 describe("TemplateManager", () => {
   const testDir = path.join(__dirname, 'saved-custom-templates/test')
+  let templateManager: TemplateManager
 
   beforeEach(async () => {
+    templateManager = new TemplateManager()
     await mkdir(testDir, { recursive: true })
   })
 
@@ -14,8 +16,6 @@ describe("TemplateManager", () => {
   })
 
   it("should save a custom template", async () => {
-    const templateManager = new TemplateManager()
-
     await templateManager.saveCustomTemplate("test/123", "Hello World! This is {variable} of {variable}")
 
     const template = await readFile(`${testDir}/123.txt`, "utf-8")
@@ -23,8 +23,6 @@ describe("TemplateManager", () => {
   })
 
   it("should list saved templates", async () => {
-    const templateManager = new TemplateManager()
-
     await Promise.all([
       templateManager.saveCustomTemplate("test/123", "Hello World! This is {variable} of {variable}"),
       templateManager.saveCustomTemplate("test/456", "Hello World! This is {variable} of {variable}"),
@@ -39,8 +37,6 @@ describe("TemplateManager", () => {
   })
 
   it("should find a saved template", async () => {
-    const templateManager = new TemplateManager()
-
     await templateManager.saveCustomTemplate("test/123", "Hello World! This is {variable} of {variable}")
 
     const template = await templateManager.findSavedTemplate("test/123")
@@ -48,14 +44,10 @@ describe("TemplateManager", () => {
   })
 
   it("should throw an error if the template is not found", async () => {
-    const templateManager = new TemplateManager()
-
     await expect(templateManager.findSavedTemplate("test/123")).rejects.toThrow()
   })
 
   it("should delete a saved template", async () => {
-    const templateManager = new TemplateManager()
-
     await templateManager.saveCustomTemplate("test/123", "Hello World! This is {variable} of {variable}")
     await templateManager.deleteCustomTemplate("test/123")
 

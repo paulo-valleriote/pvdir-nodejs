@@ -1,8 +1,14 @@
-import { generateUseCaseTemplate } from "./generate-factory"
+import { GenerateUseCaseTemplate } from "./generate-factory"
 
 describe('GenerateFactory', () => {
+  let sut: GenerateUseCaseTemplate
+
+  beforeEach(() => {
+    sut = new GenerateUseCaseTemplate()
+  })
+
   it('should generate a factory', async () => {
-    const result = await generateUseCaseTemplate(['TestRepository'], 'Test')
+    const result = await sut.execute(['TestRepository'], 'Test')
 
     expect(result.filename).toBe('make-test.ts')
     expect(result.template).toContain('import { TestRepository } from "./test-repository"')
