@@ -1,7 +1,7 @@
-import { readFile, unlink, writeFile, mkdir } from "node:fs/promises"
-import { savedCustomTemplatesMap } from "./saved-custom-templates"
 import { randomUUID } from "node:crypto"
+import { mkdir, readFile, unlink, writeFile } from "node:fs/promises"
 import path from "node:path"
+import { savedCustomTemplatesMap } from "./saved-custom-templates"
 
 export class TemplateManager {
   private readonly templatesPath = path.join(__dirname, "saved-custom-templates")
@@ -28,7 +28,7 @@ export class TemplateManager {
     const filename = templateId.split('/').pop() || templateId
     const id = templateId ?? randomUUID()
 
-    const fullPath = path.join(this.templatesPath, id + ".txt")
+    const fullPath = path.join(this.templatesPath, `${id}.txt`)
     const dirPath = path.dirname(fullPath)
     await mkdir(dirPath, { recursive: true })
 
